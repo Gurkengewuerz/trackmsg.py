@@ -4,6 +4,7 @@ from regex_postfix import *
 from datetime import datetime
 import math
 import json
+import os
 import config
 
 class PostfixLogParser():
@@ -27,15 +28,37 @@ class PostfixLogParser():
             self.search_tokens.append(re.compile(".* -> .*<" + recipient + ">.*"))
         elif not sender:
             self.search_tokens.append(to_regex)
+        
+        with open(self.logfile, "rb") as f:
+            self.lines = self.tail(f, config.LAST_X_LINES)
+            
+    # https://stackoverflow.com/a/13790289
+    def tail(self, f, lines=1, _buffer=4098):
+        """Tail a file and get X lines from the end"""
+        # place holder for the lines found
+        lines_found = []
 
-        with open(self.logfile) as f:
-            self.f = f.readlines()
+        block_counter = -1
+
+        while len(lines_found) < lines:
+            try:
+                f.seek(block_counter * _buffer, os.SEEK_END)
+            except IOError:
+                f.seek(0)
+                lines_found = f.readlines()
+                break
+
+            lines_found = f.readlines()
+            block_counter -= 1
+
+        return lines_found[-lines:]
 
 
     def parse(self):
         messages_dict = {}
         return_array = []
-        for line in self.f:
+        for line in self.lines:
+            line = line.decode("utf-8") 
             for phrase in self.search_tokens:
                 if phrase.match(line):
                     message_id = None
