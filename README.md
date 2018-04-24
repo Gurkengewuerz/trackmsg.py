@@ -2,19 +2,16 @@
 Name
 ====
 
-**trackmsg.py** -  Track messages on postfix log, delivery status and other informations. 
+**trackmsg.py** -  Track messages on postfix log, delivery status and other informations.  
+The main program was rewritten for bottle in order to view the data in the web. Thanks gfleury for the regex!
+
 
 Usage
 =====
 
-usage: trackmsg.py [-h] [-s SERVER] [-f SENDER] [-t RECIPIENT] [-r RELAY_HOST]
-                   [-l LOGFILE]
-
-![alt text](https://raw.githubusercontent.com/gfleury/trackmsg.py/master/usage.png "Usage")
-
-You can use regex on any arguments. 
+Set all necessary information in the config file and start *trackmsg.py* with python3.
 
 License
 =======
 
-This software is distributed under the terms of the FSF Lesser Gnu Public License (see [lgpl.txt](lgpl.txt)).
+This software is distributed under the terms of the FSF Lesser Gnu Public License (see [LICENSE](LICENSE)).
