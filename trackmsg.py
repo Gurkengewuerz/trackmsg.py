@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from bottle import route, run, template, static_file, auth_basic, response
 from regex_postfix import *
-from datetime import datetime
+#from datetime import datetime
 import math
 import json
 import os
@@ -113,7 +113,7 @@ class PostfixLogParser():
                         date_split = line.split(" ")
                         if len(date_split) >= 3:
                             messages_dict[message_id]['date'] = date_split[0] + " " + date_split[1]  + " " + date_split[2]
-                            messages_dict[message_id]['timestamp'] = datetime.strptime(messages_dict[message_id]['date'], "%b %d %H:%M:%S").strftime('%s')
+                            #messages_dict[message_id]['timestamp'] = datetime.strptime(messages_dict[message_id]['date'], "%b %d %H:%M:%S").strftime('%s')
 
                         status = status_regex.findall(line)
                         if status:
